@@ -1,7 +1,15 @@
+import { cleanup } from '@testing-library/react';
 import React, { useEffect } from 'react';
 
-const Alert = ({ type, message }) => {
-  return <h2>alert component</h2>;
+const Alert = ({ type, message, removeAlert, list }) => {
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      removeAlert();
+    }, 3000);
+    return () => clearTimeout(timeout);
+  }, [list]);
+
+  return <p className={`alert alert-${type}`}>{message}</p>;
 };
 
 export default Alert;
